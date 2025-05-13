@@ -24,7 +24,7 @@ CONFIG_BLOCK="[$SHARE_NAME]
    path = $SHARE_DIR
    browseable = yes
    read only = no
-   guest ok = yes
+   guest ok = no
    force user = $USER"
 
 # Add to smb.conf
@@ -34,6 +34,10 @@ if ! grep -q "^\[$SHARE_NAME\]" "$SAMBA_CONF"; then
 else
   echo "[$SHARE_NAME] already exists in $SAMBA_CONF"
 fi
+
+# Add the user to Samba
+echo "Setting Samba password for user: $USER"
+sudo smbpasswd -a "$USER"
 
 # Restart Samba service
 echo "Restarting Samba..."

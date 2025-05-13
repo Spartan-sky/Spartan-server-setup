@@ -2,7 +2,7 @@
 
 # Variables
 SHARE_NAME="Public"
-SHARE_DIR="home/skylar/shared"
+SHARE_DIR="/home/skylar/shared"
 SAMBA_CONF="/etc/samba/smb.conf"
 USER="$(whoami)"
 

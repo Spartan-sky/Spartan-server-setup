@@ -2,9 +2,9 @@
 
 # Variables
 SHARE_NAME="Public"
-SHARE_DIR="/home/skylar/shared"
-SAMBA_CONF="/etc/samba/smb.conf"
 USER="$(whoami)"
+SHARE_DIR="/home/$USER/shared"
+SAMBA_CONF="/etc/samba/smb.conf"
 
 # Ensure Samba is installed
 if ! command -v smbd >/dev/null 2>&1; then
@@ -28,11 +28,11 @@ CONFIG_BLOCK="[$SHARE_NAME]
    force user = $USER"
 
 # Add to smb.conf
-if ! grep -q "^\[$SHARE_NAME\]" "$SAMBA_CONFIG"; then
-  echo "Adding [$SHARE_NAME] share to $SAMBA_CONFIG..."
-  echo -e "\n$CONFIG_BLOCK" | sudo tee -a "$SAMBA_CONFIG" >/dev/null
+if ! grep -q "^\[$SHARE_NAME\]" "$SAMBA_CONF"; then
+  echo "Adding [$SHARE_NAME] share to $SAMBA_CONF..."
+  echo -e "\n$CONFIG_BLOCK" | sudo tee -a "$SAMBA_CONF" >/dev/null
 else
-  echo "[$SHARE_NAME] already exists in $SAMBA_CONFIG"
+  echo "[$SHARE_NAME] already exists in $SAMBA_CONF"
 fi
 
 # Restart Samba service
